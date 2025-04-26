@@ -1,0 +1,43 @@
+config:
+  target: 'http://127.0.0.1:3000/api' # Replace with your app's base URL
+  phases:
+    - duration: 120 # Run the test for 60 seconds
+      arrivalRate: 20 # Simulate 10 requests per second
+      rampTo: 500 # slowly ramp up to 200 requests/sec over 60s
+      name: "Ramp up the load"
+  
+#  payload:
+#    path: performance-test-payload.jsonl # Path to the JSON file containing the payload    
+#    format: json # Specify the format of the payload file
+# Stronger settings
+  http:
+    timeout: 10 # seconds
+    concurrency: 100 # simulate 100 virtual users at the same time
+
+  ensure:
+    maxErrorRate: 1 # Fail test if more than 1% of errors occur
+
+scenarios:
+  - flow:      
+      - post: # First request to populate the cache A
+          url: "/addMenu" # Test the /addMenu endpoint
+          json:
+            menus:
+              - id: 1
+                sysName: "King menu"
+                name:
+                  en-GB: "King menu"
+                  fr-FR: "Le menu de roi"
+                price: 2.3
+                vatRate: "normal"
+            vatRates:
+              normal:
+                ratePct: 20
+                isDefault: true
+#          json: "{{ $payload }}"
+      - get:
+          url: "/getMenu" # First request to populate the cache B
+#       - get:
+#           url: "/getMenu" # Subsequent requests to validate cache hits
+      - get:
+          url: "/getMenu" # Repeat to simulate multiple cache hits
