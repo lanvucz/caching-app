@@ -62,15 +62,11 @@ function errorHandler(err, req, res, next) {
           logger.error('Error', err, err.stack);
       }
       return res.status(err.status).json({
-          error: err.message,
-          timestamp: err.timestamp,
-          ...(err.cause && {cause: err.cause}),
-          ...(err.parameters && {parameters: err.parameters}),
-          ...(err.status && err.status >= 500 && {traces: err.stack})
+          error: err.message
       });
   }
 
-    logger.error(err.message, {stack: err.stack, statusCode: e});
+    logger.error(err.message, {stack: err.stack});
  
   return res.status(err.statusCode || 500).json({
     error: err.message || 'Internal Server Error',

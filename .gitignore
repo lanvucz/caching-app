@@ -29,4 +29,5 @@ dist/
 build/
 
 # Test output
-test/
+ptest/
+coverage/
