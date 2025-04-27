@@ -88,6 +88,7 @@ Supports caching and automatic retries.
 
 - Tries to **fetch cached external data** first.
 - If external API fetch **fails**, retries up to **5 times**.
+- If external API fails, **fallback to cached external data**.
 - Merges `DATA_A` (local) and `DATA_B` (external) into one final response.
 - Sets cache-related HTTP headers (`Cache-Control`, `ETag`, etc.).
 
@@ -140,8 +141,6 @@ or
 
 ---
 
-# 🚀 Future Improvements
 
-- If external API fails, **fallback to cached external data**.
 
 

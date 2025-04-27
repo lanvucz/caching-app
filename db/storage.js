@@ -5,30 +5,6 @@ const {logger} = require('../logger');
 
 const db = defaultStorage === 'redis' ? redisStorage : fileStorage;
 
-// const memoryCache = new Map();
-
-// function setMemory(key, value, ttl = null) {
-//   const expiresAt = ttl && ttl > 0 ? Date.now() + ttl * 1000 : 0;
-//   memoryCache.set(key, { data: value, expiresAt });
-// }
-
-// function getMemory(key) {
-//   const entry = memoryCache.get(key);
-//   if (!entry) return null;
-//   if (entry.expiresAt){
-//     if(entry.expiresAt===0) {
-//       return entry.data; // no expiration
-//     } 
-//     if (entry.expiresAt < Date.now()) {
-//       memoryCache.delete(key); // expired
-//       return null;
-//     }
-//   }
-
-//   return entry.data;
-// }
-
-
 async function get(key) {
   
   try {
